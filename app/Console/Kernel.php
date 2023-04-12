@@ -96,7 +96,7 @@ class Kernel extends ConsoleKernel
 
 
             // End
-        })->everyTwoMinutes()->appendOutputTo('scheduler.log');
+        })->hourly()->appendOutputTo('scheduler.log');
     }
 
     /**
