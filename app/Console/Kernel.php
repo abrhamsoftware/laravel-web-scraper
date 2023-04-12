@@ -17,6 +17,8 @@ class Kernel extends ConsoleKernel
         $schedule->call(function () {
 
             // Start
+            // TimeZone
+            date_default_timezone_set("UTC");
 
             $username='mys';  # Add UserName
             $password='SAO:18.mYs'; # Add Password
