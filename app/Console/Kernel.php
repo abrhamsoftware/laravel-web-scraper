@@ -18,12 +18,12 @@ class Kernel extends ConsoleKernel
 
             // Start
 
-            $username='';  # Add UserName
-            $password=''; # Add Password
+            $username='mys';  # Add UserName
+            $password='SAO:18.mYs'; # Add Password
 
-            $region = '0'; #REGIONAL = 0, BRN = 1, IDN = 2, MYS = 3, PNG = 4, PHL = 5, TLS = 6
+            $region = '3'; #REGIONAL = 0, BRN = 1, IDN = 2, MYS = 3, PNG = 4, PHL = 5, TLS = 6
             $option = '0'; #MEDIAN = 0, LOW = 1, HIGH = 2
-            $download_type = 0;  # 0 = text, 1 = csv, 2 = csvt
+            $download_type = 1;  # 0 = text, 1 = csv, 2 = csvt
 
             $year = date('Y');
             $month= date('m');
@@ -58,12 +58,15 @@ class Kernel extends ConsoleKernel
 
             // Extraction Html File to get Download Url
 
+            //  Used to extract href for download link
             $extraction = preg_grep("/(COMPOSITE_)/i", explode(" ", $html));
             $extraction_string = implode(' ', $extraction);
 
+            // Used to extract url path
             $second_extraction = preg_grep("/(COMPOSITE_)/i", explode("\"", $extraction_string));
             $second_extraction_string = implode(',', $second_extraction);
 
+            // Used to create and extract path array
             $final_extraction= preg_grep("/(COMPOSITE_)/i", explode(",", $second_extraction_string));
 
 
@@ -84,8 +87,8 @@ class Kernel extends ConsoleKernel
 
             $response = $client->request('GET', $download_url,[
                 'verify' => false,
-                'auth' => ['mys', 'SAO:18.mYs'],
-                'sink' => 'Download/'.$year." ".$month." ".$day." ".$hour.date(" A").'.'.$file_type
+                'auth' => [$username, $password],
+                'sink' => 'Download/'.$year."-".$month."-".$day." ".$hour.date(" A").'.'.$file_type
                 ]);
 
 
